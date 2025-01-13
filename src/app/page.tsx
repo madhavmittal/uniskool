@@ -7,14 +7,14 @@ export default function Home() {
   return (
     <main className="overflow-hidden">
       <section className="relative min-h-screen py-24 h-full">
-        {/* Background Image using Image component */}
+        {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/hero-bg.webp" // Replace with the path to your image
+            src="/hero-bg.webp"
             alt="Hero Background"
-            layout="fill"
-            objectFit="cover"
-            className="opacity-95"
+            fill
+            className="object-cover opacity-95"
+            priority
           />
         </div>
 
@@ -40,7 +40,7 @@ export default function Home() {
               className="bg-emerald-400 hover:bg-emerald-600 hover:scale-95 text-white"
               onClick={() => (window.location.href = "/Shop")}
             >
-              Select Your Organisation
+              Select Your Organization
             </Button>
           </div>
         </div>

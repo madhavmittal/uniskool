@@ -1,12 +1,33 @@
 "use client";
 
-import { Carousel, CarouselItem } from "@/components/ui/carousel"; // Ensure these are implemented
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { Carousel, CarouselItem } from "@/components/ui/carousel";
+
 import Image from "next/image";
-import Link from "next/link"; // Import Next.js Link component
+import Link from "next/link";
 
 export default function OrganizationSlider() {
   return (
-    <div className="w-full max-w-6xl mx-auto py-6 my-8 space-y-14">
+    <div className="w-full max-w-6xl mx-auto py-6 mb-6 space-y-14">
+      {/* Breadcrumb */}
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/Shop">Organizations</BreadcrumbLink>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
       {/* Schools Carousel */}
       <div>
         <h2 className="text-3xl font-bold mb-6 text-center font-serif text-emerald-800">
@@ -39,10 +60,10 @@ export default function OrganizationSlider() {
         </Carousel>
       </div>
 
-      {/* Organizations Carousel */}
+      {/* Industries Carousel */}
       <div>
         <h2 className="text-3xl font-bold mb-6 text-center font-serif text-emerald-800">
-          Organizations
+          Industries
         </h2>
         <Carousel className="flex gap-4 overflow-x-auto scroll-smooth no-scrollbar w-full">
           {[

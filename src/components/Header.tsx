@@ -14,7 +14,7 @@ import {
 import { NavLink } from "@/components/NavLink";
 import Image from "next/image";
 import Link from "next/link";
-import { IoStorefront, IoHome, IoInformationCircle } from "react-icons/io5";
+import { IoStorefront, IoHome, IoCartOutline } from "react-icons/io5";
 import {
   TooltipProvider,
   Tooltip,
@@ -22,21 +22,23 @@ import {
   TooltipContent,
 } from "@/components/ui/tooltip";
 
+import { useCart } from "@/context/CartContext"; // Importing the useCart hook
+
 export default function Header() {
+  // Access cart and item count from CartContext
+  const { cart } = useCart();
+  const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0); // Get total number of items in the cart
+
   return (
     <TooltipProvider>
       <header className="flex items-center justify-between px-6 py-4 bg-yellow-50">
         {/* Logo left-aligned on desktop, centered on mobile */}
-        <Link
-          href="/"
-          className="flex-1 md:flex justify-center md:justify-start md:pl-8"
-        >
+        <Link href="/" className="md:pl-8">
           <Image src="/Logos/Logo.png" alt="Logo" height="80" width="150" />
         </Link>
 
         {/* Desktop Navigation (Hidden on mobile, visible on md screens and larger) */}
         <nav className="hidden md:flex space-x-12 text-xl md:pr-10">
-          {/* Home Link with Tooltip */}
           <Tooltip>
             <TooltipTrigger asChild>
               <div className="inline-flex items-center hover:scale-90">
@@ -54,7 +56,6 @@ export default function Header() {
             </TooltipContent>
           </Tooltip>
 
-          {/* Shop Link with Tooltip */}
           <Tooltip>
             <TooltipTrigger asChild>
               <div className="inline-flex items-center hover:scale-90">
@@ -72,13 +73,17 @@ export default function Header() {
             </TooltipContent>
           </Tooltip>
 
-          {/* About Link with Tooltip */}
           <Tooltip>
             <TooltipTrigger asChild>
-              <div className="inline-flex items-center hover:scale-90">
-                <NavLink href="/About">
-                  <IoInformationCircle size={20} color="green" />
+              <div className="relative inline-flex items-center hover:scale-90">
+                <NavLink href="/Cart">
+                  <IoCartOutline size={20} color="green" />
                 </NavLink>
+                {cartItemCount > 0 && (
+                  <span className="absolute -top-0.5 right-4 text-red-600 text-[12px] font-bold rounded-full outline w-3.5 h-3.5 flex items-center justify-center">
+                    {cartItemCount}
+                  </span>
+                )}
               </div>
             </TooltipTrigger>
             <TooltipContent
@@ -86,14 +91,13 @@ export default function Header() {
               align="center"
               className="bg-black text-white p-2 rounded"
             >
-              <p>ABOUT</p>
+              <p>CART</p>
             </TooltipContent>
           </Tooltip>
         </nav>
 
         {/* Hamburger Menu for Mobile */}
         <div className="md:hidden">
-          {/* Drawer for Mobile Navigation (Visible only on mobile) */}
           <Drawer>
             <DrawerTrigger asChild>
               <Button

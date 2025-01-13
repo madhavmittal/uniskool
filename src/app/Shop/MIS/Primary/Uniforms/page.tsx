@@ -2,6 +2,22 @@
 
 import { useState, useRef, useEffect } from "react";
 import Product from "@/components/Product";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+  BreadcrumbPage,
+} from "@/components/ui/breadcrumb";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@radix-ui/react-dropdown-menu";
+import { ChevronDownIcon } from "lucide-react";
+import Link from "next/link";
 
 interface ProductType {
   title: string;
@@ -170,6 +186,76 @@ const Carousel = () => {
 
   return (
     <div className="flex flex-col h-full">
+      {/* Breadcrumb */}
+      <Breadcrumb className="ml-14 mt-6 mb-2 z-50">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1">
+                Organizations
+                <ChevronDownIcon />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start">
+                <DropdownMenuItem>Modern International</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/Shop/GIS">Ganga International</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/Shop/SDPS">SD Public</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="mt-2">
+                  <Link href="/Shop/TM">Tata Motors</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/Shop/MG">MG Motors</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1">
+                Grade
+                <ChevronDownIcon />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start">
+                <DropdownMenuItem>
+                  <Link href="/Shop/MIS/Kindergarten">Kindergarten</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>1 to 5</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/Shop/MIS/Secondary">6 to 12</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1">
+                Category
+                <ChevronDownIcon />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start">
+                <DropdownMenuItem>Uniform</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/Shop/MIS/Primary/Shoes">Shoes</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Uniforms</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
       {/* Carousel Section */}
       <div className="flex-1 relative flex items-center justify-center bg-gray-100">
         {/* Blur Effect */}
