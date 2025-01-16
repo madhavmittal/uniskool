@@ -1,3 +1,4 @@
+import ProductsChoice from "@/components/ProductsChoice";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -71,6 +72,12 @@ const page = () => {
           <BreadcrumbPage>Secondary</BreadcrumbPage>
         </BreadcrumbList>
       </Breadcrumb>
+
+      {/* Products Category Choice */}
+      <ProductsChoice
+        hrefUni="/Shop/MIS/Primary/Uniforms"
+        hrefShoe="/Shop/MIS/Primary/Shoes"
+      />
     </div>
   );
 };

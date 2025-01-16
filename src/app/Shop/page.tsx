@@ -35,26 +35,35 @@ export default function OrganizationSlider() {
         </h2>
         <Carousel className="flex overflow-x-auto scroll-smooth no-scrollbar w-full gap-4">
           {[
-            { logo: "/Logos/MISLogo.png", link: "/Shop/MIS" },
-            { logo: "/Logos/GISLogo.png", link: "/Shop/GIS" },
-            { logo: "/Logos/SDPSLogo.png", link: "/Shop/SDPS" },
+            { logo: "/Logos/MISLogo.png", link: "/Shop/MIS", name: "MIS" },
+            { logo: "/Logos/GISLogo.png", link: "/Shop/GIS", name: "GIS" },
+            { logo: "/Logos/SDPSLogo.png", link: "/Shop/SDPS", name: "SDPS" },
           ].map((item, index) => (
             <CarouselItem
               key={index}
-              className="flex-shrink-0"
+              className="flex-shrink-0 relative"
               style={{
-                flex: "0 0 calc(100% / 3 - 16px)", // Dynamically adjusts to fit 3 items per row with spacing
+                flex: "0 0 calc(100% / 3 - 16px)", // Adjusts to fit 3 items per row with spacing
               }}
             >
-              <Link href={item.link}>
-                <Image
-                  src={item.logo}
-                  alt={`Logo ${index + 1}`}
-                  height={300}
-                  width={300}
-                  className="object-contain mx-auto hover:opacity-80 hover:scale-105 transition-opacity"
-                />
-              </Link>
+              <div className="relative">
+                <Link href={item.name === "MIS" ? item.link : "#"}>
+                  <Image
+                    src={item.logo}
+                    alt={`Logo ${index + 1}`}
+                    height={300}
+                    width={300}
+                    className="object-contain mx-auto hover:opacity-80 hover:scale-105 transition-opacity"
+                  />
+                </Link>
+
+                {/* Apply blur & overlay to non-MIS items */}
+                {item.name !== "MIS" && (
+                  <div className="absolute inset-0 bg-black/50 backdrop-blur-md flex items-center justify-center text-white font-bold text-xl">
+                    Coming Soon
+                  </div>
+                )}
+              </div>
             </CarouselItem>
           ))}
         </Carousel>
@@ -67,25 +76,32 @@ export default function OrganizationSlider() {
         </h2>
         <Carousel className="flex gap-4 overflow-x-auto scroll-smooth no-scrollbar w-full">
           {[
-            { logo: "/Logos/TMLogo.png", link: "/Shop/TM" },
-            { logo: "/Logos/MGLogo.png", link: "/Shop/MG" },
+            { logo: "/Logos/TMLogo.png", link: "/Shop/TM", name: "TM" },
+            { logo: "/Logos/MGLogo.png", link: "/Shop/MG", name: "MG" },
           ].map((item, index) => (
             <CarouselItem
               key={index}
-              className="flex-shrink-0"
+              className="flex-shrink-0 relative"
               style={{
                 flex: "0 0 calc(100% / 3 - 16px)", // Adjusts to fit 3 items per row with spacing
               }}
             >
-              <Link href={item.link}>
-                <Image
-                  src={item.logo}
-                  alt={`Organization Logo ${index + 1}`}
-                  height={300}
-                  width={300}
-                  className="object-contain mx-auto hover:opacity-80 hover:scale-105 transition-opacity"
-                />
-              </Link>
+              <div className="relative">
+                <Link href={"#"}>
+                  <Image
+                    src={item.logo}
+                    alt={`Organization Logo ${index + 1}`}
+                    height={300}
+                    width={300}
+                    className="object-contain mx-auto hover:opacity-80 hover:scale-105 transition-opacity"
+                  />
+                </Link>
+
+                {/* Apply blur & overlay */}
+                <div className="absolute inset-0 bg-black/50 backdrop-blur-md flex items-center justify-center text-white font-bold text-xl">
+                  Coming Soon
+                </div>
+              </div>
             </CarouselItem>
           ))}
         </Carousel>
