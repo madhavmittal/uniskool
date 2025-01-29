@@ -1,4 +1,3 @@
-// src/components/Product.tsx
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -17,7 +16,7 @@ import {
 } from "@/components/ui/select";
 import Image from "next/image";
 import React, { useState } from "react";
-import { useCart } from "@/context/CartContext"; // Import the custom hook
+import { useCart } from "@/context/CartContext";
 
 interface ProductProps {
   title: string;
@@ -28,22 +27,27 @@ interface ProductProps {
 }
 
 const Product = ({ title, desc, imgSrc, imgAlt, sizes }: ProductProps) => {
-  const [selectedSize, setSelectedSize] = useState<string | null>(null); // State for selected size
-  const { addToCart } = useCart(); // Access addToCart from the CartContext
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const { cart, addToCart, updateCartQuantity, removeFromCart } = useCart();
+
+  // Find item in cart
+  const cartItem = cart.find(
+    (item) => item.title === title && item.size === selectedSize
+  );
 
   const handleAddToCart = () => {
     if (selectedSize) {
-      const cartItem = {
-        id: Math.floor(Math.random() * 1000), // Generate a random id
+      const newItem = {
+        id: Math.floor(Math.random() * 1000),
         title,
         size: selectedSize,
         imgSrc,
-        quantity: 1, // You can adjust this if you want quantity management
-        price: 100, // You can adjust this if you want to add price management
+        quantity: 1,
+        price: 100,
       };
-      addToCart(cartItem); // Add item to the cart
+      addToCart(newItem);
     } else {
-      alert("Please select a size"); // Handle case where no size is selected
+      alert("Please select a size");
     }
   };
 
@@ -57,7 +61,7 @@ const Product = ({ title, desc, imgSrc, imgAlt, sizes }: ProductProps) => {
         <CardContent>
           <form className="justify-center">
             <div className="grid w-full gap-4">
-              <Image src={imgSrc} alt={imgAlt} height="300" width="300" />
+              <Image src={imgSrc} alt={imgAlt} height={300} width={300} />
               <div className="flex flex-row space-x-8">
                 <label className="text-center pl-4 pt-1">Size</label>
                 <Select onValueChange={(value) => setSelectedSize(value)}>
@@ -81,8 +85,35 @@ const Product = ({ title, desc, imgSrc, imgAlt, sizes }: ProductProps) => {
           </form>
         </CardContent>
         <CardFooter className="flex justify-between">
-          <Button variant="outline">Cancel</Button>
-          <Button onClick={handleAddToCart}>Add To Cart</Button>
+          <Button
+            variant="outline"
+            onClick={() => cartItem && removeFromCart(cartItem.id)}
+          >
+            Remove
+          </Button>
+          {cartItem ? (
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="outline"
+                onClick={() =>
+                  updateCartQuantity(cartItem.id, cartItem.quantity - 1)
+                }
+              >
+                -
+              </Button>
+              <span>{cartItem.quantity}</span>
+              <Button
+                variant="outline"
+                onClick={() =>
+                  updateCartQuantity(cartItem.id, cartItem.quantity + 1)
+                }
+              >
+                +
+              </Button>
+            </div>
+          ) : (
+            <Button onClick={handleAddToCart}>Add To Cart</Button>
+          )}
         </CardFooter>
       </Card>
     </div>

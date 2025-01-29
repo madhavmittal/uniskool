@@ -1,13 +1,13 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
-import { IoCart, IoRemoveCircleOutline } from "react-icons/io5";
+import { IoCart } from "react-icons/io5";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 
 const Cart = () => {
-  const { cart, removeFromCart, clearCart } = useCart();
+  const { cart, clearCart } = useCart();
   const [loading, setLoading] = useState(false);
 
   // Calculate total price
@@ -61,18 +61,12 @@ const Cart = () => {
                   {/* Product Info */}
                   <div>
                     <p className="text-xl font-semibold">{item.title}</p>
+                    <p className="text-gray-500">{item.size}</p>
                     <p className="text-gray-500">
                       ${item.price} x {item.quantity}
                     </p>
                   </div>
                 </div>
-                {/* Remove Button */}
-                <button
-                  onClick={() => removeFromCart(item.id)}
-                  className="text-red-500 hover:text-red-700"
-                >
-                  <IoRemoveCircleOutline size={24} />
-                </button>
               </div>
             ))}
           </div>
